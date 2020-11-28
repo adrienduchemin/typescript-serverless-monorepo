@@ -6,7 +6,7 @@ import {
 } from '@aws/dynamodb-data-mapper-annotations'
 
 // @table('table_name')
-@table('todo')
+@table('todos')
 export class Todo {
   @hashKey()
   id!: string

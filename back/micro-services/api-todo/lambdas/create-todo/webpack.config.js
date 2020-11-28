@@ -2,7 +2,6 @@
 const path = require('path')
 
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   mode: 'production',
@@ -17,7 +16,7 @@ module.exports = {
     extensions: ['.js'],
     plugins: [new TsconfigPathsPlugin()],
   },
-  externals: [nodeExternals()], // verifier nodeExternals + add aws-sdk, @aws/dynamodb-data-mapper-annotations ?, @aws/dynamodb-data-mapper ?
+  externals: ['aws-sdk'], // add @aws/dynamodb-data-mapper-annotations ?, @aws/dynamodb-data-mapper ?
   // plugins: [
   //   new UglifyJsPlugin(),
   // ],
