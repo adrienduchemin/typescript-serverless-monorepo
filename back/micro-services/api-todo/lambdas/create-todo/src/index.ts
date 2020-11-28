@@ -1,31 +1,34 @@
-import { Context, Handler, APIGatewayProxyEvent } from "aws-lambda";
-import { generateInstanceId } from "@lambda-utils";
-import { ICreateTodo } from "@shared-types";
-import { handle } from "./main";
-import { init } from "./init";
+import { generateInstanceId } from '@lambda-utils'
+import { ICreateTodo } from '@shared-types'
+import { APIGatewayProxyEvent, Context, Handler } from 'aws-lambda'
 
-// let inited = false;
-const instanceId = generateInstanceId();
-console.log("Starting lambda", { instanceId });
+import { handle } from './main'
 
-// maybe to delete if not workings
-(async () => {
-  console.log("Initing lambda", { instanceId });
-  await init();
-})();
+// import { init } from './init'
+
+// let initiated = false
+const instanceId: string = generateInstanceId()
+console.log('Starting lambda', { instanceId })
+
+// (async () => {
+//   console.log('Initing lambda', { instanceId })
+//   await init()
+// })()
+
+// init dynamo etc
 
 export const handler: Handler = async (
   event: APIGatewayProxyEvent,
   context: Context
 ) => {
-  console.log("Handling lambda", { event, context, instanceId });
-  //   if (!inited) {
-  //     await init();
-  //     inited = true;
-  //   }
+  console.log('Handling lambda', { event, context, instanceId })
+  // if (!initiated) {
+  //   await init()
+  //   initiated = true
+  // }
   if (event.body === null) {
-    return "why no body :(";
+    return 'why no body :('
   }
-  const body = JSON.parse(event.body) as ICreateTodo;
-  return handle(body);
-};
+  const body = JSON.parse(event.body) as ICreateTodo
+  return handle(body)
+}
