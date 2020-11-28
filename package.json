@@ -21,7 +21,10 @@
     "build": "tsc -b -v",
     "build:dev": "tsc -b -w -v"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@aws/dynamodb-data-mapper": "^0.7.3",
+    "@aws/dynamodb-data-mapper-annotations": "^0.7.3"
+  },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.64",
     "@types/node": "^14.14.10",

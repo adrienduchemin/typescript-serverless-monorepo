@@ -1,1 +1,2 @@
-export * from "./create-todo.interface";
+export * from './create-todo-dto.interface'
+export * from './todo.entity'

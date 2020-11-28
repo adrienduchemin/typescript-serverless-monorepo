@@ -1,4 +1,4 @@
-export interface ICreateTodo {
+export interface ICreateTodoDto {
   name: string
   description?: string
 }

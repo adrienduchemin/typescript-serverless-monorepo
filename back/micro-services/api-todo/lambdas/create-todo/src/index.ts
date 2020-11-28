@@ -1,34 +1,55 @@
 import { generateInstanceId } from '@lambda-utils'
-import { ICreateTodo } from '@shared-types'
-import { APIGatewayProxyEvent, Context, Handler } from 'aws-lambda'
+import { Todo } from '@shared-types'
+import { APIGatewayProxyHandlerV2 } from 'aws-lambda'
 
-import { handle } from './main'
+import { initConfig } from './init'
+import {
+  handle,
+  HttpBadRequestError,
+  HttpError,
+  HttpInternalServerError,
+  IAPIGatewayErrorPayload,
+} from './main'
 
-// import { init } from './init'
-
-// let initiated = false
 const instanceId: string = generateInstanceId()
-console.log('Starting lambda', { instanceId })
 
-// (async () => {
-//   console.log('Initing lambda', { instanceId })
-//   await init()
-// })()
+// let config: IConfig
+// if init has async
+// const initConfigPromise = initConfig()
+// and remove next line
+const config = initConfig()
 
-// init dynamo etc
-
-export const handler: Handler = async (
-  event: APIGatewayProxyEvent,
-  context: Context
+export const handler: APIGatewayProxyHandlerV2<Todo> = async (
+  event,
+  context
 ) => {
-  console.log('Handling lambda', { event, context, instanceId })
-  // if (!initiated) {
-  //   await init()
-  //   initiated = true
+  // if (!initResult) {
+  //   // be sure that init as finished
+  //   config = await initConfigPromise
   // }
-  if (event.body === null) {
-    return 'why no body :('
+  console.log('Handling lambda', { event, context, instanceId })
+  try {
+    const response = await handle(event, config)
+    return response
+  } catch (err) {
+    console.log(err instanceof HttpError)
+    console.log(err instanceof HttpBadRequestError)
+    console.log(err instanceof HttpInternalServerError)
+
+    // maybe should spread for shallow copy
+    let httpError: HttpError = err
+    if (!(err instanceof HttpError)) {
+      httpError = new HttpInternalServerError({
+        error: 'Oops, Something Went Wrong',
+        trace: process.env.NODE_ENV !== 'production' ? err : undefined,
+      })
+    }
+    const { statusCode, message, details } = httpError
+    const payload: IAPIGatewayErrorPayload = { statusCode, message, ...details }
+
+    return {
+      statusCode,
+      body: JSON.stringify(payload, null, 4),
+    }
   }
-  const body = JSON.parse(event.body) as ICreateTodo
-  return handle(body)
 }
