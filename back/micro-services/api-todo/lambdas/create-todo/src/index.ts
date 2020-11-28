@@ -1,5 +1,5 @@
 import { generateInstanceId } from '@lambda-utils'
-import { Todo } from '@shared-types'
+import { ITodo } from '@shared-types'
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda'
 
 import { initConfig } from './init'
@@ -18,7 +18,7 @@ const instanceId: string = generateInstanceId()
 // and remove next line
 const config = initConfig()
 
-export const handler: APIGatewayProxyHandlerV2<Todo> = async (
+export const handler: APIGatewayProxyHandlerV2<ITodo> = async (
   event,
   context
 ) => {
