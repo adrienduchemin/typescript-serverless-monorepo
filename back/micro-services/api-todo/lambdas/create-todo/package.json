@@ -1,0 +1,10 @@
+{
+  "name": "create-todo",
+  "version": "1.0.0",
+  "scripts": {
+    "prebundle": "rimraf bundle",
+    "bundle": "webpack",
+    "start": "node -r tsconfig-paths/register dist/index.js",
+    "start:bundle": "node bundle/index.js"
+  }
+}

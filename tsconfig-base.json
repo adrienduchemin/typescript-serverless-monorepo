@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    // type checking
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true, // experimental
+
+    // shoulb be done by eslint instead
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    // "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // default generation
+    "module": "ES6", // for webpack tree shaking
+    "removeComments": true,
+    "emitDecoratorMetadata": true, // experimental
+
+    // project references mandatory
+    "composite": true,
+    "declaration": true
+  }
+}

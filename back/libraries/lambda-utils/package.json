@@ -1,0 +1,5 @@
+{
+  "name": "lambda-utils",
+  "version": "1.0.0",
+  "main": "lib/index.js"
+}
