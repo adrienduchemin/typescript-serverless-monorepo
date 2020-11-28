@@ -4,6 +4,6 @@
   "scripts": {
     "prebundle": "rimraf dist",
     "bundle": "webpack",
-    "start:bundle": "node dist/bundle.js"
+    "start": "node dist/bundle.js"
   }
 }
