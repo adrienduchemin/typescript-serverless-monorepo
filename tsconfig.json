@@ -3,6 +3,12 @@
   "references": [
     {
       "path": "./back/micro-services/api-todo/lambdas/create-todo"
+    },
+    {
+      "path": "./back/libraries/lambda-utils"
+    },
+    {
+      "path": "./shared/types"
     }
   ]
 }
