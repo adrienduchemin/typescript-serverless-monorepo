@@ -4,7 +4,6 @@ const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
-  mode: 'production',
   target: 'node',
   entry: path.resolve(__dirname, 'lib/index.js'),
   output: {
@@ -13,11 +12,8 @@ module.exports = {
     libraryTarget: 'commonjs2',
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.json'],
     plugins: [new TsconfigPathsPlugin()],
   },
   externals: ['aws-sdk'], // add @aws/dynamodb-data-mapper-annotations ?, @aws/dynamodb-data-mapper ?
-  // plugins: [
-  //   new UglifyJsPlugin(),
-  // ],
 }

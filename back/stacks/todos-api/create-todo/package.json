@@ -2,8 +2,8 @@
   "name": "create-todo",
   "version": "1.0.0",
   "scripts": {
-    "prebundle": "rimraf dist",
-    "bundle": "webpack",
-    "start": "node dist/bundle.js"
+    "prebuild": "rimraf dist",
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development --watch --devtool inline-source-map"
   }
 }
