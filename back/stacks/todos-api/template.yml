@@ -5,15 +5,18 @@ Globals:
   Function:
     Runtime: nodejs12.x
     Timeout: 180
+    Handler: bundle.handler
+    Environment:
+      Variables:
+        REGION: eu-central-1
+        REGION_DATA: eu-west-3
+        TABLE_NAME: todos
 
 Resources:
-  CreateTodo:
+  createTodo:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: create-todo/dist/bundle.handler
-      Environment:
-        Variables:
-          TABLE_NAME: todos
+      CodeUri: create-todo/dist
       Events:
         HttpApiEvent:
           Type: HttpApi
@@ -22,3 +25,7 @@ Resources:
             Method: POST
             Auth:
               Authorizer: NONE
+  fanout:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: fanout/dist
