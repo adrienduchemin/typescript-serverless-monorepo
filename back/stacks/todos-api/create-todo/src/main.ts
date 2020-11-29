@@ -22,18 +22,21 @@ export class HttpError extends Error {
     readonly details?: IHttpErrorDetails
   ) {
     super(message)
+    Object.setPrototypeOf(this, HttpError.prototype)
   }
 }
 
 export class HttpBadRequestError extends HttpError {
   constructor(details?: IHttpErrorDetails) {
     super('BAD_REQUEST', 400, details)
+    Object.setPrototypeOf(this, HttpBadRequestError.prototype)
   }
 }
 
 export class HttpInternalServerError extends HttpError {
   constructor(details?: IHttpErrorDetails) {
     super('INTERNAL_SERVER_ERROR', 500, details)
+    Object.setPrototypeOf(this, HttpInternalServerError.prototype)
   }
 }
 
@@ -54,7 +57,7 @@ export const handle = async (
   const params = {
     TableName: tableName,
     Item: {
-      id: uuidv4(),
+      todoId: uuidv4(),
       ...createTodoDto,
     },
   }

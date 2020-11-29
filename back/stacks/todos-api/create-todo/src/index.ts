@@ -31,6 +31,8 @@ export const handler: APIGatewayProxyHandlerV2<ITodo> = async (
     const response = await handle(event, config)
     return response
   } catch (err) {
+    console.error(err)
+
     let httpError: HttpError = err
     if (!(err instanceof HttpError)) {
       httpError = new HttpInternalServerError({
