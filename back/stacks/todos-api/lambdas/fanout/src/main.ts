@@ -1,71 +1,67 @@
-import { ICreateTodoDto, ITodo } from '@shared-types'
-import { APIGatewayProxyEventV2 } from 'aws-lambda'
-import { v4 as uuidv4 } from 'uuid'
+import { DynamoDBStreamEvent } from 'aws-lambda'
+import {
+  PutEventsRequest,
+  PutEventsRequestEntryList,
+} from 'aws-sdk/clients/cloudwatchevents'
 
 import { IConfig } from './init'
 
-export interface IAPIGatewayErrorPayload extends IHttpErrorDetails {
-  statusCode: number
-  message: string
-}
-
-export interface IHttpErrorDetails {
-  error?: string
-  validationErrors?: string[]
-  trace?: unknown
-}
-
-export class HttpError extends Error {
-  constructor(
-    message: string,
-    readonly statusCode: number,
-    readonly details?: IHttpErrorDetails
-  ) {
-    super(message)
-    Object.setPrototypeOf(this, HttpError.prototype)
-  }
-}
-
-export class HttpBadRequestError extends HttpError {
-  constructor(details?: IHttpErrorDetails) {
-    super('BAD_REQUEST', 400, details)
-    Object.setPrototypeOf(this, HttpBadRequestError.prototype)
-  }
-}
-
-export class HttpInternalServerError extends HttpError {
-  constructor(details?: IHttpErrorDetails) {
-    super('INTERNAL_SERVER_ERROR', 500, details)
-    Object.setPrototypeOf(this, HttpInternalServerError.prototype)
-  }
+interface EventBridgeEntry {
+  eventType: string
+  todo: unknown
 }
 
 export const handle = async (
-  event: APIGatewayProxyEventV2,
-  { db, tableName }: IConfig
-): Promise<ITodo> => {
-  if (!event.body) {
-    throw new HttpBadRequestError({ error: 'A body required' })
-  }
+  event: DynamoDBStreamEvent,
+  { eventbridge }: IConfig
+): Promise<void> => {
+  const entries: EventBridgeEntry[] = []
 
-  const createTodoDto = JSON.parse(event.body) as ICreateTodoDto
+  event.Records.forEach((record) => {
+    const { dynamodb } = record
+    if (!dynamodb) {
+      return
+    }
 
-  if (!createTodoDto.name) {
-    throw new HttpBadRequestError({ validationErrors: ['name required'] })
-  }
+    const { NewImage, OldImage } = dynamodb
+    // const todoId = Keys!.todoId.S!
 
-  const params = {
-    TableName: tableName,
-    Item: {
-      todoId: uuidv4(),
-      ...createTodoDto,
-    },
+    if (NewImage && OldImage) {
+      // update
+    } else if (NewImage) {
+      // create
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const todo: any = {}
+      for (const [key, value] of Object.entries(NewImage)) {
+        // should check each S, N , ...
+        todo[key] = value.S
+      }
+      entries.push({ eventType: 'create', todo })
+    } else {
+      // delete
+    }
+  })
+
+  const Entries: PutEventsRequestEntryList = []
+
+  entries.forEach((entry) => {
+    Entries.push({
+      Source: 'todos-api',
+      EventBusName: 'todos',
+      DetailType: entry.eventType,
+      Detail: JSON.stringify(entry.todo),
+    })
+  })
+
+  const params: PutEventsRequest = {
+    Entries,
   }
 
   try {
-    const todoCreated = await db.put(params).promise()
-    return todoCreated.Attributes 
+    const result = await eventbridge.putEvents(params).promise()
+    console.log(result)
   } catch (err) {
-    throw new HttpInternalServerError({ error: 'DynamoDB error', trace: err })
+    // throw a better error with tracer : err
+    throw new Error('Event bridge error')
   }
 }
