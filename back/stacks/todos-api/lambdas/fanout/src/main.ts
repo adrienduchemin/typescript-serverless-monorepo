@@ -18,21 +18,22 @@ export const handle = async (
   const entries: EventBridgeEntry[] = []
 
   event.Records.forEach((record) => {
-    const { dynamodb } = record
+    const { dynamodb, eventName } = record
     if (!dynamodb) {
       return
     }
 
+    eventName === 'INSERT'
     const { NewImage, OldImage } = dynamodb
     // const todoId = Keys!.todoId.S!
 
-    if (NewImage && OldImage) {
+    if (eventName === 'MODIFY') {
       // update
-    } else if (NewImage) {
+    } else if (eventName === 'INSERT') {
       // create
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const todo: any = {}
-      for (const [key, value] of Object.entries(NewImage)) {
+      for (const [key, value] of Object.entries(NewImage!)) {
         // should check each S, N , ...
         todo[key] = value.S
       }
