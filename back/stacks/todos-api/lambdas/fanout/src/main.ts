@@ -23,12 +23,15 @@ export const handle = async (
       return
     }
 
+    // TODO : USE AWS.DynamoDB.Converter : https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/Converter.html
+
     eventName === 'INSERT'
-    const { NewImage, OldImage } = dynamodb
+    const { NewImage } = dynamodb
     // const todoId = Keys!.todoId.S!
 
     if (eventName === 'MODIFY') {
       // update
+      // OldImage
     } else if (eventName === 'INSERT') {
       // create
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
