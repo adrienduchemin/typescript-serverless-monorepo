@@ -1,0 +1,7 @@
+{
+  "name": "todos-api",
+  "scripts": {
+    "dynamodb:create-table": "./scripts/create-table.sh",
+    "start:api": "./scripts/start-api.sh"
+  }
+}

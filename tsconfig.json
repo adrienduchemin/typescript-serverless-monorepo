@@ -2,10 +2,10 @@
   "files": [],
   "references": [
     {
-      "path": "./back/micro-services/api-todo/lambdas/create-todo"
+      "path": "./back/stacks/todos-api/create-todo"
     },
     {
-      "path": "./back/libraries/lambda-utils"
+      "path": "./back/libs/lambda-utils"
     },
     {
       "path": "./shared/types"

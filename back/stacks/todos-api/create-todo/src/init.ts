@@ -14,11 +14,14 @@ export const initConfig = (): IConfig => {
     apiVersion: 'latest',
   })
 
-  const db = new DynamoDB.DocumentClient({
-    endpoint: process.env.AWS_SAM_LOCAL
-      ? 'http://dynamodb-local:8000'
-      : undefined,
-  })
+  let db: DocumentClient
+  if (process.env.AWS_SAM_LOCAL) {
+    db = new DynamoDB.DocumentClient({
+      endpoint: 'http://dynamodb:8000',
+    })
+  } else {
+    db = new DynamoDB.DocumentClient()
+  }
 
   // init some async stuff like parameter stores for example
   // await Promise.all([Promise.resolve({})])

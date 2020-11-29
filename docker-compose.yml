@@ -1,10 +1,19 @@
 version: '3.7'
 services:
-  dynamodb-local:
+  dynamodb:
+    container_name: dynamodb
     image: amazon/dynamodb-local:latest
-    container_name: dynamodb-local
     ports:
       - '8000:8000'
+    volumes:
+      - dynamodb:/home/dynamodblocal
+    working_dir: /home/dynamodblocal
+    command: ['-jar', 'DynamoDBLocal.jar', '-sharedDb', '-dbPath', '.']
+
+volumes:
+  dynamodb: {}
+
 networks:
-  local:
-    external: true
+  default:
+    external:
+      name: sam-local
