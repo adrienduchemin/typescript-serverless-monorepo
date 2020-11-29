@@ -1,0 +1,21 @@
+{
+  "extends": "../../../../tsconfig.base.json",
+  "include": ["src", "test"],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@lambda-utils": ["../../../../libs/lambda-utils"],
+      "@shared-types": ["../../../../../shared/types"]
+    }
+  },
+  "references": [
+    {
+      "path": "../../../../libs/lambda-utils"
+    },
+    {
+      "path": "../../../../../shared/types"
+    }
+  ]
+}

@@ -2,7 +2,10 @@
   "files": [],
   "references": [
     {
-      "path": "./back/stacks/todos-api/create-todo"
+      "path": "./back/stacks/todos-api/lambdas/create-todo"
+    },
+    {
+      "path": "./back/stacks/todos-api/lambdas/fanout"
     },
     {
       "path": "./back/libs/lambda-utils"

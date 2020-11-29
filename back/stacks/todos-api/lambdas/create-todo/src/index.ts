@@ -10,7 +10,7 @@ import {
   IAPIGatewayErrorPayload,
 } from './main'
 
-const instanceId: string = generateInstanceId()
+const instanceId = generateInstanceId()
 
 // let config: IConfig
 // if init has async

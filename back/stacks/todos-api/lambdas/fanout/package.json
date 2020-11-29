@@ -1,0 +1,9 @@
+{
+  "name": "create-todo",
+  "version": "1.0.0",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development --watch --devtool inline-source-map"
+  }
+}

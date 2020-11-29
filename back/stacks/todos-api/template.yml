@@ -16,7 +16,7 @@ Resources:
   createTodo:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: create-todo/dist
+      CodeUri: lambdas/create-todo/dist
       Events:
         HttpApiEvent:
           Type: HttpApi
@@ -28,4 +28,4 @@ Resources:
   fanout:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: fanout/dist
+      CodeUri: lambdas/fanout/dist
