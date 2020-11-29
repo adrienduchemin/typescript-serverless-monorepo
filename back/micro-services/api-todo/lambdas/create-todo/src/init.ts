@@ -3,38 +3,28 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 export interface IConfig {
   db: DocumentClient
-  env: {
-    environment: string
-    region: string
-    tableName: string
-  }
+  tableName: string
 }
 
 export const initConfig = (): IConfig => {
-  const region = process.env.REGION || 'eu-central-1'
-  const environment = process.env.NODE_ENV || 'development'
   const tableName = process.env.TABLE_NAME || 'todos'
 
-  config.update({ region, apiVersion: 'latest' })
-
-  const db = new DynamoDB.DocumentClient({
-    endpoint: 'http://dynamodb-local:8000',
+  config.update({
+    region: process.env.REGION || 'eu-central-1',
+    apiVersion: 'latest',
   })
 
-  // const db = new DynamoDB.DocumentClient({
-  //   endpoint:
-  //     environment === 'development' ? 'http://localhost:8000' : undefined,
-  // })
+  const db = new DynamoDB.DocumentClient({
+    endpoint: process.env.AWS_SAM_LOCAL
+      ? 'http://dynamodb-local:8000'
+      : undefined,
+  })
 
   // init some async stuff like parameter stores for example
   // await Promise.all([Promise.resolve({})])
 
   return {
     db,
-    env: {
-      region,
-      environment,
-      tableName,
-    },
+    tableName,
   }
 }

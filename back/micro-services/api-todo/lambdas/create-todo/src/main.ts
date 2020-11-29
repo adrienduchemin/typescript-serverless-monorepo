@@ -39,17 +39,16 @@ export class HttpInternalServerError extends HttpError {
 
 export const handle = async (
   event: APIGatewayProxyEventV2,
-  { db, env: { tableName } }: IConfig
+  { db, tableName }: IConfig
 ): Promise<ITodo> => {
   if (!event.body) {
-    throw new HttpBadRequestError({ error: 'Body required' })
+    throw new HttpBadRequestError({ error: 'A body required' })
   }
 
   const createTodoDto = JSON.parse(event.body) as ICreateTodoDto
 
-  // validation example
   if (!createTodoDto.name) {
-    throw new HttpBadRequestError({ validationErrors: ['Name required'] })
+    throw new HttpBadRequestError({ validationErrors: ['name required'] })
   }
 
   const params = {
@@ -64,7 +63,6 @@ export const handle = async (
     const todoCreated = await db.put(params).promise()
     return todoCreated.Attributes as ITodo
   } catch (err) {
-    // should check the type of DynamoDb error and put error : err.message and trace : err.trace ?
     throw new HttpInternalServerError({ error: 'DynamoDB error', trace: err })
   }
 }

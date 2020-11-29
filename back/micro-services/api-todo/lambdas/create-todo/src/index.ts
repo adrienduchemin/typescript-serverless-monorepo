@@ -35,7 +35,7 @@ export const handler: APIGatewayProxyHandlerV2<ITodo> = async (
     if (!(err instanceof HttpError)) {
       httpError = new HttpInternalServerError({
         error: 'Oops, Something Went Wrong',
-        trace: config.env.environment !== 'production' ? err : undefined,
+        trace: process.env.NODE_ENV !== 'production' ? err : undefined,
       })
     }
     const { statusCode, message, details } = httpError
