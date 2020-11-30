@@ -22,6 +22,8 @@
     "build:dev": "tsc -b -w -v"
   },
   "dependencies": {
+    "@middy/core": "^1.4.0",
+    "tslib": "^2.0.3",
     "uuid": "^8.3.1"
   },
   "devDependencies": {

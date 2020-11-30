@@ -20,6 +20,7 @@
 
     // default generation
     "module": "ES6", // for webpack tree shaking
+    "importHelpers": true,
     "removeComments": true,
     "emitDecoratorMetadata": true, // experimental
 
