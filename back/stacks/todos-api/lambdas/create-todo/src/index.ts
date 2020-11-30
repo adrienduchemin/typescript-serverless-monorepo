@@ -1,8 +1,8 @@
 import {
-  bodyParser,
-  dbInjector,
+  apiGatewayEventParser,
+  dynamoDBInjector,
   IInjectedContext,
-  IParsedEvent,
+  IAPIGatewayParsedEvent,
   traceInjector,
 } from '@middlewares'
 import middy from '@middy/core'
@@ -15,10 +15,10 @@ import {
   HttpInternalServerError,
   IAPIGatewayErrorPayload,
 } from './main'
-import { dbInjectorOptions } from './options'
+import { dynamoDBInjectorOptions } from './options'
 
 const createTodo = async (
-  event: IParsedEvent<ICreateTodoDto>,
+  event: IAPIGatewayParsedEvent<ICreateTodoDto>,
   context: IInjectedContext
 ): Promise<APIGatewayProxyResultV2<ITodo>> => {
   console.log('Handling lambda', { event, context })
@@ -45,6 +45,6 @@ const createTodo = async (
 }
 
 export const handler = middy(createTodo)
+  .use(apiGatewayEventParser())
   .use(traceInjector())
-  .use(dbInjector(dbInjectorOptions))
-  .use(bodyParser())
+  .use(dynamoDBInjector(dynamoDBInjectorOptions))

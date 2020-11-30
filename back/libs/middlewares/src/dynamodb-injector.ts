@@ -4,19 +4,19 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 import { IInjectedContext } from './injected-context'
 
-export interface IDbInjectorConfig {
+export interface IDynamoDBInjectorConfig {
   client: DocumentClient
   tableName: string
 }
 
-export interface IDbInjectorOptions {
+export interface IDynamoDBInjectorOptions {
   endpoint?: string
   region: string
   tableName: string
 }
 
-export const dbInjector = (
-  options: IDbInjectorOptions
+export const dynamoDBInjector = (
+  options: IDynamoDBInjectorOptions
 ): middy.MiddlewareObject<any, any, IInjectedContext> => {
   return {
     before: (handler, next) => {
@@ -28,7 +28,7 @@ export const dbInjector = (
         endpoint,
       })
 
-      const config: IDbInjectorConfig = {
+      const config: IDynamoDBInjectorConfig = {
         tableName,
         client,
       }

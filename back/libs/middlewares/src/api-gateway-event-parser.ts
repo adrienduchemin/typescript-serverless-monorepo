@@ -2,10 +2,10 @@
 import middy from '@middy/core'
 import createError from 'http-errors'
 
-import { IParsedEvent } from './parsed-event'
+import { IAPIGatewayParsedEvent } from './api-gateway-parsed-event'
 
-export const bodyParser = (): middy.MiddlewareObject<
-  IParsedEvent<string | any>,
+export const apiGatewayEventParser = (): middy.MiddlewareObject<
+  IAPIGatewayParsedEvent<string | any>,
   any
 > => {
   return {
@@ -23,6 +23,8 @@ export const bodyParser = (): middy.MiddlewareObject<
       } catch (err) {
         throw new createError.UnprocessableEntity('Invalid JSON')
       }
+
+      // could normalize / parse headers
 
       next()
     },
