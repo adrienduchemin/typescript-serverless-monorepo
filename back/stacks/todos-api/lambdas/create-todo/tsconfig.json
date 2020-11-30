@@ -6,6 +6,7 @@
     "rootDir": "src",
     "baseUrl": ".",
     "paths": {
+      "@constants": ["../../../../constants"],
       "@middlewares": ["../../../../libs/middlewares"],
       "@types": ["../../../../../shared/types"]
     }
@@ -13,6 +14,9 @@
   "references": [
     {
       "path": "../../../../libs/middlewares"
+    },
+    {
+      "path": "../../../../constants"
     },
     {
       "path": "../../../../../shared/types"

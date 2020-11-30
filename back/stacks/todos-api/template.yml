@@ -9,7 +9,7 @@ Globals:
     Environment:
       Variables:
         REGION: eu-central-1
-        REGION_DATA: eu-west-3
+        REGION_DB: eu-west-3
         TABLE_NAME: todos
 
 Resources:

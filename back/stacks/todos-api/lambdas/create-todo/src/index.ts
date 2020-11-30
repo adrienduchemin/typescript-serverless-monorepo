@@ -1,34 +1,23 @@
-import { IContextWithConfig, instanceId } from '@middlewares'
+import { dbInjector, IInjectedContext, traceInjector } from '@middlewares'
 import middy from '@middy/core'
 import { ITodo } from '@types'
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda'
 
-import { initConfig } from './init'
 import {
   handle,
   HttpError,
   HttpInternalServerError,
   IAPIGatewayErrorPayload,
 } from './main'
-
-// let config: IConfig
-// if init has async
-// const initConfigPromise = initConfig()
-// and remove next line
-const config = initConfig()
+import { dbInjectorOptions } from './options'
 
 const createTodo = async (
   event: APIGatewayProxyEventV2,
-  context: IContextWithConfig
+  context: IInjectedContext
 ): Promise<APIGatewayProxyResultV2<ITodo>> => {
-  // if (!initResult) {
-  //   // be sure that init as finished
-  //   config = await initConfigPromise
-  // }
   console.log('Handling lambda', { event, context })
   try {
-    const response = await handle(event, config)
-    return response
+    return await handle(event, context.config!)
   } catch (err) {
     console.error(err)
 
@@ -50,4 +39,5 @@ const createTodo = async (
 }
 
 export const handler = middy(createTodo)
-handler.use(instanceId())
+  .use(traceInjector())
+  .use(dbInjector(dbInjectorOptions))

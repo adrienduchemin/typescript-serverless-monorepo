@@ -1,8 +1,9 @@
+import { IInjectorConfig } from '@middlewares'
 import { ICreateTodoDto, ITodo } from '@types'
 import { APIGatewayProxyEventV2 } from 'aws-lambda'
+import { AWSError } from 'aws-sdk'
+import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { v4 as uuidv4 } from 'uuid'
-
-import { IConfig } from './init'
 
 export interface IAPIGatewayErrorPayload extends IHttpErrorDetails {
   statusCode: number
@@ -13,6 +14,8 @@ export interface IHttpErrorDetails {
   error?: string
   validationErrors?: string[]
   trace?: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any
 }
 
 export class HttpError extends Error {
@@ -42,7 +45,7 @@ export class HttpInternalServerError extends HttpError {
 
 export const handle = async (
   event: APIGatewayProxyEventV2,
-  { db, tableName }: IConfig
+  config: IInjectorConfig
 ): Promise<ITodo> => {
   if (!event.body) {
     throw new HttpBadRequestError({ error: 'A body required' })
@@ -54,18 +57,28 @@ export const handle = async (
     throw new HttpBadRequestError({ validationErrors: ['name required'] })
   }
 
-  const params = {
+  const { tableName, client } = config.db!
+
+  const todo: ITodo = {
+    todoId: uuidv4(),
+    ...createTodoDto,
+  }
+
+  const input: DocumentClient.PutItemInput = {
     TableName: tableName,
-    Item: {
-      todoId: uuidv4(),
-      ...createTodoDto,
-    },
+    Item: todo,
   }
 
   try {
-    const todoCreated = await db.put(params).promise()
-    return todoCreated.Attributes as ITodo
+    // can't work with creation as no attributes are returned
+    // const { Attributes }: DocumentClient.PutItemOutput = await client
+    //   .put(input)
+    //   .promise()
+    // return Attributes! as ITodo
+    await client.put(input).promise()
+    return todo
   } catch (err) {
-    throw new HttpInternalServerError({ error: 'DynamoDB error', trace: err })
+    const { message, code, statusCode } = err as AWSError
+    throw new HttpInternalServerError({ code, message, statusCode })
   }
 }

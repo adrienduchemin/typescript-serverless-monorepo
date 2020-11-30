@@ -1,14 +1,16 @@
-// import { generateInstanceId } from '@lambda-utils'
-import { DynamoDBStreamHandler } from 'aws-lambda'
+import { IInjectedContext, traceInjector } from '@middlewares'
+import middy from '@middy/core'
+import { DynamoDBStreamEvent } from 'aws-lambda'
 
 import { initConfig } from './init'
 import { handle } from './main'
 
-// const instanceId = generateInstanceId()
 const config = initConfig()
 
-export const handler: DynamoDBStreamHandler = async (event, context) => {
-  // console.log('Handling lambda', { event, context, instanceId })
+const fanout = async (
+  event: DynamoDBStreamEvent,
+  context: IInjectedContext
+): Promise<void> => {
   console.log('Handling lambda', { event, context })
   try {
     await handle(event, config)
@@ -16,3 +18,5 @@ export const handler: DynamoDBStreamHandler = async (event, context) => {
     console.error(err)
   }
 }
+
+export const handler = middy(fanout).use(traceInjector())

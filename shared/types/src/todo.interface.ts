@@ -1,5 +1,5 @@
 export interface ITodo {
-  id: string
+  todoId: string
   name: string
   description?: string
 }

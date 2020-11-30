@@ -8,7 +8,13 @@
       "path": "./back/stacks/todos-api/lambdas/fanout"
     },
     {
+      "path": "./back/constants"
+    },
+    {
       "path": "./back/libs/middlewares"
+    },
+    {
+      "path": "./back/libs/utils"
     },
     {
       "path": "./shared/types"
