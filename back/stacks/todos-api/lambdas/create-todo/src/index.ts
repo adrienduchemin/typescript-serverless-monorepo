@@ -1,6 +1,7 @@
-import { generateInstanceId } from '@lambda-utils'
-import { ITodo } from '@shared-types'
-import { APIGatewayProxyHandlerV2 } from 'aws-lambda'
+import { IContextWithConfig, instanceId } from '@middlewares'
+import middy from '@middy/core'
+import { ITodo } from '@types'
+import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda'
 
 import { initConfig } from './init'
 import {
@@ -10,23 +11,21 @@ import {
   IAPIGatewayErrorPayload,
 } from './main'
 
-const instanceId = generateInstanceId()
-
 // let config: IConfig
 // if init has async
 // const initConfigPromise = initConfig()
 // and remove next line
 const config = initConfig()
 
-export const handler: APIGatewayProxyHandlerV2<ITodo> = async (
-  event,
-  context
-) => {
+const createTodo = async (
+  event: APIGatewayProxyEventV2,
+  context: IContextWithConfig
+): Promise<APIGatewayProxyResultV2<ITodo>> => {
   // if (!initResult) {
   //   // be sure that init as finished
   //   config = await initConfigPromise
   // }
-  console.log('Handling lambda', { event, context, instanceId })
+  console.log('Handling lambda', { event, context })
   try {
     const response = await handle(event, config)
     return response
@@ -49,3 +48,6 @@ export const handler: APIGatewayProxyHandlerV2<ITodo> = async (
     }
   }
 }
+
+export const handler = middy(createTodo)
+handler.use(instanceId())

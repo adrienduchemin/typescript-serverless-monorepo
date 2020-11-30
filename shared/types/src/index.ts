@@ -1,2 +1,2 @@
-export * from './create-todo-dto.interface'
+export * from './dto'
 export * from './todo.interface'

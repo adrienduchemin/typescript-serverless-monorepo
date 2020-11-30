@@ -6,13 +6,13 @@
     "rootDir": "src",
     "baseUrl": ".",
     "paths": {
-      "@lambda-utils": ["../../../../libs/lambda-utils"],
-      "@shared-types": ["../../../../../shared/types"]
+      "@middlewares": ["../../../../libs/middlewares"],
+      "@types": ["../../../../../shared/types"]
     }
   },
   "references": [
     {
-      "path": "../../../../libs/lambda-utils"
+      "path": "../../../../libs/middlewares"
     },
     {
       "path": "../../../../../shared/types"

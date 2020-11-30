@@ -1,4 +1,4 @@
-import { ICreateTodoDto, ITodo } from '@shared-types'
+import { ICreateTodoDto, ITodo } from '@types'
 import { APIGatewayProxyEventV2 } from 'aws-lambda'
 import { v4 as uuidv4 } from 'uuid'
 

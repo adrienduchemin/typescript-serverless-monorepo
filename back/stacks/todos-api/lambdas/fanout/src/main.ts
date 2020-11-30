@@ -1,4 +1,4 @@
-import { ITodo } from '@shared-types'
+import { ITodo } from '@types'
 import { DynamoDBStreamEvent } from 'aws-lambda'
 import { PutEventsRequest } from 'aws-sdk/clients/cloudwatchevents'
 import { Converter } from 'aws-sdk/clients/dynamodb'
