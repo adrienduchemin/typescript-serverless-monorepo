@@ -1,10 +1,21 @@
 import { AWS_DYNAMODB_LOCAL_ENDPOINT, AWS_REGION } from '@constants'
-import { IDynamoDBInjectorOptions } from '@middlewares'
+import {
+  IDynamoDBInjectorOptions,
+  IApiGatewayEventBodyValidatorOptions,
+} from '@middlewares'
 
 import { DEFAULT_TABLE_NAME } from './constants'
+import { schema } from './schema'
 
 export const dynamoDBInjectorOptions: IDynamoDBInjectorOptions = {
-  region: process.env.REGION_DB ?? process.env.REGION ?? AWS_REGION,
+  documentClientOptions: {
+    region: process.env.REGION_DB ?? process.env.REGION ?? AWS_REGION,
+    endpoint: process.env.AWS_SAM_LOCAL && AWS_DYNAMODB_LOCAL_ENDPOINT,
+  },
   tableName: process.env.TABLE_NAME ?? DEFAULT_TABLE_NAME,
-  endpoint: process.env.AWS_SAM_LOCAL && AWS_DYNAMODB_LOCAL_ENDPOINT,
+}
+
+export const apiGatewayEventBodyValidatorOptions: IApiGatewayEventBodyValidatorOptions = {
+  schema,
+  validationOptions: { abortEarly: false, allowUnknown: false, convert: false },
 }

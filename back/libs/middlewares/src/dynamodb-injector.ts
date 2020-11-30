@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import middy from '@middy/core'
-import { DocumentClient } from 'aws-sdk/clients/dynamodb'
+import DynamoDB, { DocumentClient } from 'aws-sdk/clients/dynamodb'
+import { ServiceConfigurationOptions } from 'aws-sdk/lib/service'
 
 import { IInjectedContext } from './injected-context'
 
@@ -10,8 +11,9 @@ export interface IDynamoDBInjectorConfig {
 }
 
 export interface IDynamoDBInjectorOptions {
-  endpoint?: string
-  region: string
+  documentClientOptions?: DocumentClient.DocumentClientOptions &
+    ServiceConfigurationOptions &
+    DynamoDB.ClientApiVersions
   tableName: string
 }
 
@@ -20,12 +22,11 @@ export const dynamoDBInjector = (
 ): middy.MiddlewareObject<any, any, IInjectedContext> => {
   return {
     before: (handler, next) => {
-      const { tableName, region, endpoint } = options
+      const { tableName, documentClientOptions } = options
 
       const client = new DocumentClient({
         apiVersion: 'latest',
-        region,
-        endpoint,
+        ...documentClientOptions,
       })
 
       const config: IDynamoDBInjectorConfig = {

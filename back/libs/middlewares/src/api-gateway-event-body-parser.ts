@@ -4,7 +4,7 @@ import createError from 'http-errors'
 
 import { IAPIGatewayParsedEvent } from './api-gateway-parsed-event'
 
-export const apiGatewayEventParser = (): middy.MiddlewareObject<
+export const apiGatewayEventBodyParser = (): middy.MiddlewareObject<
   IAPIGatewayParsedEvent<string | any>,
   any
 > => {
@@ -13,7 +13,7 @@ export const apiGatewayEventParser = (): middy.MiddlewareObject<
       const { body } = handler.event
 
       if (!body) {
-        throw new createError.BadRequest('Body required')
+        throw createError(400, 'Body required')
       }
 
       handler.event.rawBody = body
@@ -21,10 +21,10 @@ export const apiGatewayEventParser = (): middy.MiddlewareObject<
       try {
         handler.event.body = JSON.parse(body)
       } catch (err) {
-        throw new createError.UnprocessableEntity('Invalid JSON')
+        throw createError(400, 'Invalid JSON')
       }
 
-      // could normalize / parse headers
+      // in another file, should parse and normalize headers
 
       next()
     },
