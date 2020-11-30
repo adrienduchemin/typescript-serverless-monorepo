@@ -1,6 +1,5 @@
 import { IInjectorConfig } from '@middlewares'
 import { ICreateTodoDto, ITodo } from '@types'
-import { APIGatewayProxyEventV2 } from 'aws-lambda'
 import { AWSError } from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { v4 as uuidv4 } from 'uuid'
@@ -44,15 +43,9 @@ export class HttpInternalServerError extends HttpError {
 }
 
 export const handle = async (
-  event: APIGatewayProxyEventV2,
+  createTodoDto: ICreateTodoDto,
   config: IInjectorConfig
 ): Promise<ITodo> => {
-  if (!event.body) {
-    throw new HttpBadRequestError({ error: 'A body required' })
-  }
-
-  const createTodoDto = JSON.parse(event.body) as ICreateTodoDto
-
   if (!createTodoDto.name) {
     throw new HttpBadRequestError({ validationErrors: ['name required'] })
   }

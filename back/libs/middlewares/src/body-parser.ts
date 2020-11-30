@@ -1,31 +1,30 @@
-// import middy from '@middy/core'
-// import { APIGatewayProxyEventV2 } from 'aws-lambda'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import middy from '@middy/core'
+import createError from 'http-errors'
 
-// import { IInjectedContext } from './context-with-config.interface'
+import { IParsedEvent } from './parsed-event'
 
-// export interface IGeneratetraceIdOptions {
-//   traceIdDefault: string | undefined
-// }
+export const bodyParser = (): middy.MiddlewareObject<
+  IParsedEvent<string | any>,
+  any
+> => {
+  return {
+    before: (handler, next) => {
+      const { body } = handler.event
 
-// export interface IGeneratetraceIdConfig {
-//   traceId: string
-// }
+      if (!body) {
+        throw new createError.BadRequest('Body required')
+      }
 
-// export const generatetraceId = (
-//   options?: IGeneratetraceIdOptions
-// ): middy.MiddlewareObject<
-//   APIGatewayProxyEventV2,
-//   never,
-//   IInjectedContext
-// > => {
-//   return {
-//     before: (handler, next) => {
-//       if (!options) {
-//         const traceId = Math.random().toString(16).slice(2)
-//         console.log('Starting lambda', { traceId })
-//         handler.context.config.traceId = traceId
-//       }
-//       next()
-//     },
-//   }
-// }
+      handler.event.rawBody = body
+
+      try {
+        handler.event.body = JSON.parse(body)
+      } catch (err) {
+        throw new createError.UnprocessableEntity('Invalid JSON')
+      }
+
+      next()
+    },
+  }
+}

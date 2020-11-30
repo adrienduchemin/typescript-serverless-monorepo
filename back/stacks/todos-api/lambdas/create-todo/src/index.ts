@@ -1,7 +1,13 @@
-import { dbInjector, IInjectedContext, traceInjector } from '@middlewares'
+import {
+  bodyParser,
+  dbInjector,
+  IInjectedContext,
+  IParsedEvent,
+  traceInjector,
+} from '@middlewares'
 import middy from '@middy/core'
-import { ITodo } from '@types'
-import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda'
+import { ICreateTodoDto, ITodo } from '@types'
+import { APIGatewayProxyResultV2 } from 'aws-lambda'
 
 import {
   handle,
@@ -12,12 +18,12 @@ import {
 import { dbInjectorOptions } from './options'
 
 const createTodo = async (
-  event: APIGatewayProxyEventV2,
+  event: IParsedEvent<ICreateTodoDto>,
   context: IInjectedContext
 ): Promise<APIGatewayProxyResultV2<ITodo>> => {
   console.log('Handling lambda', { event, context })
   try {
-    return await handle(event, context.config!)
+    return await handle(event.body, context.config!)
   } catch (err) {
     console.error(err)
 
@@ -41,3 +47,4 @@ const createTodo = async (
 export const handler = middy(createTodo)
   .use(traceInjector())
   .use(dbInjector(dbInjectorOptions))
+  .use(bodyParser())
