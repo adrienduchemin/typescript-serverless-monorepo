@@ -14,7 +14,7 @@ import { APIGatewayProxyResultV2 } from 'aws-lambda'
 import { handle } from './main'
 import {
   apiGatewayEventBodyValidatorOptions,
-  dynamoDBInjectorOptions,
+  dynamoDBInjectorConfig,
 } from './options'
 
 const createTodo = async (
@@ -30,4 +30,4 @@ export const handler = middy(createTodo)
   .use(apiGatewayEventBodyParser())
   .use(apiGatewayEventBodyValidator(apiGatewayEventBodyValidatorOptions))
   .use(traceInjector())
-  .use(dynamoDBInjector(dynamoDBInjectorOptions))
+  .use(dynamoDBInjector(dynamoDBInjectorConfig))

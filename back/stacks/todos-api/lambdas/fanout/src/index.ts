@@ -8,7 +8,7 @@ import middy from '@middy/core'
 import { DynamoDBStreamEvent } from 'aws-lambda'
 
 import { handle } from './main'
-import { eventBridgeInjectorOptions } from './options'
+import { eventBridgeInjectorConfig } from './options'
 
 const fanout = async (
   event: DynamoDBStreamEvent, //IDynamoDBParsedEvent<ICreateTodoDto>
@@ -22,4 +22,4 @@ export const handler = middy(fanout)
   .use(eventErrorHandler()) // so it's the last to execute error
   // .use(dynamoDBEventRecordsParser())
   .use(traceInjector())
-  .use(EventBridgeInjector(eventBridgeInjectorOptions))
+  .use(EventBridgeInjector(eventBridgeInjectorConfig))
