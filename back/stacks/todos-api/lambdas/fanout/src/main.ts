@@ -1,16 +1,18 @@
+import { IInjectorConfig } from '@middlewares'
 import { ITodo } from '@types'
 import { DynamoDBStreamEvent } from 'aws-lambda'
+import { AWSError } from 'aws-sdk'
 import { PutEventsRequest } from 'aws-sdk/clients/cloudwatchevents'
 import { Converter } from 'aws-sdk/clients/dynamodb'
-
-import { IConfig } from './init'
+import createHttpError from 'http-errors'
 
 export const handle = async (
   event: DynamoDBStreamEvent,
-  { eventbridge }: IConfig
+  config: IInjectorConfig
 ): Promise<void> => {
-  // maybe should for of with async and send them one by one to eventbridge
-  // so each error can be sent individually instead of replay everything everytime
+  const { client } = config.eventbridge!
+
+  // should be moved to parser
   const entries = event.Records.map((record) => {
     const { dynamodb, eventName } = record
     const { NewImage, OldImage } = dynamodb!
@@ -37,6 +39,7 @@ export const handle = async (
     }
   })
 
+  // should be moved to a lib
   const params: PutEventsRequest = {
     Entries: entries.map((entry) => {
       const { eventName, newObject, oldObject } = entry
@@ -49,11 +52,13 @@ export const handle = async (
     }),
   }
 
+  // should be moved to a lib
   try {
-    await eventbridge.putEvents(params).promise()
+    await client.putEvents(params).promise()
   } catch (err) {
-    // throw a better error with tracer : err
-    // do something with them
-    throw new Error('Event bridge error')
+    const { message, code, statusCode } = err as AWSError
+    const errorMessage = 'EventBridge error'
+    console.error(errorMessage, { code, message, statusCode })
+    throw createHttpError(500, errorMessage)
   }
 }

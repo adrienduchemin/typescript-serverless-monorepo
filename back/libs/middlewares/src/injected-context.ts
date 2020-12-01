@@ -1,6 +1,7 @@
 import { Context } from 'aws-lambda'
 
 import { IDynamoDBInjectorConfig } from './dynamodb-injector'
+import { IEventBridgeInjectorConfig } from './eventbridge-injector'
 import { ITraceInjectorConfig } from './trace-injector'
 
 export interface IInjectedContext extends Context {
@@ -8,6 +9,7 @@ export interface IInjectedContext extends Context {
 }
 
 export interface IInjectorConfig {
-  db?: IDynamoDBInjectorConfig
+  dynamodb?: IDynamoDBInjectorConfig
   trace?: ITraceInjectorConfig
+  eventbridge?: IEventBridgeInjectorConfig
 }

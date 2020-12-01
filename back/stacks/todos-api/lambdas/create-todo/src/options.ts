@@ -5,7 +5,7 @@ import {
 } from '@middlewares'
 
 import { DEFAULT_TABLE_NAME } from './constants'
-import { schema } from './schema'
+import { bodySchema } from './schema'
 
 export const dynamoDBInjectorOptions: IDynamoDBInjectorOptions = {
   documentClientOptions: {
@@ -16,6 +16,6 @@ export const dynamoDBInjectorOptions: IDynamoDBInjectorOptions = {
 }
 
 export const apiGatewayEventBodyValidatorOptions: IApiGatewayEventBodyValidatorOptions = {
-  schema,
+  schema: bodySchema,
   validationOptions: { abortEarly: false, allowUnknown: false, convert: false },
 }

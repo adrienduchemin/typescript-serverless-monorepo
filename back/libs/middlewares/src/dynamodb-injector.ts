@@ -36,7 +36,7 @@ export const dynamoDBInjector = (
 
       handler.context.config = {
         ...handler.context.config,
-        db: config,
+        dynamodb: config,
       }
 
       next()

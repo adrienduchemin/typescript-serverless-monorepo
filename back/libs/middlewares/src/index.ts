@@ -1,6 +1,7 @@
 export * from './api-gateway-event-body-parser'
 export * from './api-gateway-event-body-validator'
 export * from './dynamodb-injector'
+export * from './eventbridge-injector'
 export * from './api-gateway-parsed-event'
 export * from './trace-injector'
 export * from './api-gateway-error-handler'

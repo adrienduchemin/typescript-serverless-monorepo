@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import middy from '@middy/core'
-import createError from 'http-errors'
+import createHttpError from 'http-errors'
 
 import { IAPIGatewayParsedEvent } from './api-gateway-parsed-event'
 
@@ -13,7 +13,7 @@ export const apiGatewayEventBodyParser = (): middy.MiddlewareObject<
       const { body } = handler.event
 
       if (!body) {
-        throw createError(400, 'Body required')
+        throw createHttpError(400, 'Body required')
       }
 
       handler.event.rawBody = body
@@ -21,7 +21,7 @@ export const apiGatewayEventBodyParser = (): middy.MiddlewareObject<
       try {
         handler.event.body = JSON.parse(body)
       } catch (err) {
-        throw createError(400, 'Invalid JSON')
+        throw createHttpError(400, 'Invalid JSON')
       }
 
       // in another file, should parse and normalize headers
