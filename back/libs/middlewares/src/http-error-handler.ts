@@ -3,7 +3,7 @@ import middy from '@middy/core'
 import { APIGatewayProxyResultV2 } from 'aws-lambda'
 import createHttpError, { HttpError } from 'http-errors'
 
-export const apiGatewayErrorHandler = (): middy.MiddlewareObject<
+export const httpErrorHandler = (): middy.MiddlewareObject<
   any,
   APIGatewayProxyResultV2<any>
 > => {
@@ -11,8 +11,9 @@ export const apiGatewayErrorHandler = (): middy.MiddlewareObject<
     onError: (handler, next) => {
       let error = handler.error as HttpError
 
-      if (!createHttpError.isHttpError(error)) {
-        console.error('Unexpected error', { error })
+      console.error(error)
+
+      if (!createHttpError.isHttpError(error) || error.statusCode >= 500) {
         error = createHttpError(500, 'Oops, Something Went Wrong')
       }
 

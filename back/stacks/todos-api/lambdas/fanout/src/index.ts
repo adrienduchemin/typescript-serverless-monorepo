@@ -18,7 +18,7 @@ const fanout = async (
 }
 
 export const handler = middy(fanout)
-  // .use(errorHandler()) // so it's the last to execute error
+  // .use(eventErrorHandler()) // so it's the last to execute error
   // .use(dynamoDBEventRecordsParser())
   .use(traceInjector())
   .use(EventBridgeInjector(eventBridgeInjectorOptions))

@@ -22,8 +22,8 @@ export const handle = async (
     Item: todo,
   }
 
-  // should be moved to a lib
   try {
+    // should be moved to a lib
     // can't work with creation as no attributes are returned
     // const { Attributes }: DocumentClient.PutItemOutput = await client
     //   .put(input)
@@ -33,8 +33,11 @@ export const handle = async (
     return todo
   } catch (err) {
     const { message, code, statusCode } = err as AWSError
-    const errorMessage = 'DynamoDB error'
-    console.error(errorMessage, { code, message, statusCode })
-    throw createHttpError(500, errorMessage)
+    throw createHttpError(500, 'DynamoDB error', {
+      expose: true,
+      messageAws: message,
+      codeAws: code,
+      statusCodeAws: statusCode,
+    })
   }
 }

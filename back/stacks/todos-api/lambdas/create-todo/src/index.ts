@@ -5,7 +5,7 @@ import {
   IInjectedContext,
   IAPIGatewayParsedEvent,
   traceInjector,
-  apiGatewayErrorHandler,
+  httpErrorHandler,
 } from '@middlewares'
 import middy from '@middy/core'
 import { ICreateTodoDto, ITodo } from '@types'
@@ -26,7 +26,7 @@ const createTodo = async (
 }
 
 export const handler = middy(createTodo)
-  .use(apiGatewayErrorHandler()) // so it's the last to execute error
+  .use(httpErrorHandler()) // so it's the last to execute error
   .use(apiGatewayEventBodyParser())
   .use(apiGatewayEventBodyValidator(apiGatewayEventBodyValidatorOptions))
   .use(traceInjector())

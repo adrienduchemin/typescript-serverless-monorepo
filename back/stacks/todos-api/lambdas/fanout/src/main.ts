@@ -1,10 +1,10 @@
 import { IInjectorConfig } from '@middlewares'
 import { ITodo } from '@types'
+import { EventError } from '@utils'
 import { DynamoDBStreamEvent } from 'aws-lambda'
 import { AWSError } from 'aws-sdk'
 import { PutEventsRequest } from 'aws-sdk/clients/cloudwatchevents'
 import { Converter } from 'aws-sdk/clients/dynamodb'
-import createHttpError from 'http-errors'
 
 export const handle = async (
   event: DynamoDBStreamEvent,
@@ -57,8 +57,10 @@ export const handle = async (
     await client.putEvents(params).promise()
   } catch (err) {
     const { message, code, statusCode } = err as AWSError
-    const errorMessage = 'EventBridge error'
-    console.error(errorMessage, { code, message, statusCode })
-    throw createHttpError(500, errorMessage)
+    throw new EventError('EventBridge error', {
+      messageAws: message,
+      codeAws: code,
+      statusCodeAws: statusCode,
+    })
   }
 }

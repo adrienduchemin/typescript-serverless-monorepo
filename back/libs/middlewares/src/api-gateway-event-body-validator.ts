@@ -22,9 +22,7 @@ export const apiGatewayEventBodyValidator = (
         )
       } catch (err) {
         const { details } = err as ValidationError
-        const errorMessage = 'Validation error'
-        console.error(errorMessage, { errors: details })
-        throw createHttpError(422, errorMessage, { errors: details })
+        throw createHttpError(422, 'Validation error', { errors: details })
       }
     },
   }
