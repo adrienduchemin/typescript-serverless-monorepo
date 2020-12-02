@@ -8,16 +8,12 @@
     "paths": {
       "@constants": ["../../../../constants"],
       "@middlewares": ["../../../../libs/middlewares"],
-      "@utils": ["../../../../libs/utils"],
       "@types": ["../../../../../shared/types"]
     }
   },
   "references": [
     {
       "path": "../../../../libs/middlewares"
-    },
-    {
-      "path": "../../../../libs/utils"
     },
     {
       "path": "../../../../constants"

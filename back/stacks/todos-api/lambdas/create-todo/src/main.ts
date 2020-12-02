@@ -1,12 +1,12 @@
 import { IInjectorConfig } from '@middlewares'
-import { ICreateTodoDto, ITodo } from '@types'
+import { ICreateTodo, ITodo } from '@types'
 import { AWSError } from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import createHttpError from 'http-errors'
 import { v4 as uuidv4 } from 'uuid'
 
 export const handle = async (
-  createTodoDto: ICreateTodoDto,
+  createTodoDto: ICreateTodo,
   config: IInjectorConfig
 ): Promise<ITodo> => {
   const { tableName, client } = config.dynamodb!

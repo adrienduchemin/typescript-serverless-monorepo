@@ -1,6 +1,5 @@
 import { IInjectorConfig } from '@middlewares'
-import { ITodo } from '@types'
-import { EventError } from '@utils'
+import { ITodo, EventError } from '@types'
 import { DynamoDBStreamEvent } from 'aws-lambda'
 import { AWSError } from 'aws-sdk'
 import { PutEventsRequest } from 'aws-sdk/clients/cloudwatchevents'

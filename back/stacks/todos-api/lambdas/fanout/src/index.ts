@@ -11,7 +11,7 @@ import { handle } from './main'
 import { eventBridgeInjectorConfig } from './options'
 
 const fanout = async (
-  event: DynamoDBStreamEvent, //IDynamoDBParsedEvent<ICreateTodoDto>
+  event: DynamoDBStreamEvent, //IDynamoDBParsedEvent<ICreateTodo>
   context: IInjectedContext
 ): Promise<void> => {
   console.log('Handling lambda', { event, context })

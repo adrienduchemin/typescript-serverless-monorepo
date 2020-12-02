@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src"],
+  "include": ["src", "../../../shared/types/src/event-error.ts"],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"

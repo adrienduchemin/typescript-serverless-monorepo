@@ -8,7 +8,7 @@ import {
   httpErrorHandler,
 } from '@middlewares'
 import middy from '@middy/core'
-import { ICreateTodoDto, ITodo } from '@types'
+import { ICreateTodo, ITodo } from '@types'
 import { APIGatewayProxyResultV2 } from 'aws-lambda'
 
 import { handle } from './main'
@@ -18,7 +18,7 @@ import {
 } from './options'
 
 const createTodo = async (
-  event: IAPIGatewayParsedEvent<ICreateTodoDto>,
+  event: IAPIGatewayParsedEvent<ICreateTodo>,
   context: IInjectedContext
 ): Promise<APIGatewayProxyResultV2<ITodo>> => {
   console.log('Handling lambda', { event, context })
