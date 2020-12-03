@@ -1,5 +1,5 @@
-import { IInjectorConfig } from '@middlewares'
-import { ICreateTodo, ITodo } from '@types'
+import { IInjectorConfig } from '@mimir/lambda-middlewares'
+import { ICreateTodo, ITodo } from '@mimir/models'
 import { AWSError } from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import createHttpError from 'http-errors'

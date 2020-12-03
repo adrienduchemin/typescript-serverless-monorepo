@@ -1,3 +1,4 @@
+import middy from '@middy/core'
 import {
   apiGatewayEventBodyParser,
   apiGatewayEventBodyValidator,
@@ -6,9 +7,8 @@ import {
   IAPIGatewayParsedEvent,
   traceInjector,
   httpErrorHandler,
-} from '@middlewares'
-import middy from '@middy/core'
-import { ICreateTodo, ITodo } from '@types'
+} from '@mimir/lambda-middlewares'
+import { ICreateTodo, ITodo } from '@mimir/models'
 import { APIGatewayProxyResultV2 } from 'aws-lambda'
 
 import { handle } from './main'

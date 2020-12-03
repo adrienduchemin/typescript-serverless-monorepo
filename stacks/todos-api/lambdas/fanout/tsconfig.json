@@ -7,7 +7,7 @@
     "baseUrl": "."
     // "paths": {
     //   "@constants": ["../../../../constants"],
-    //   "@middlewares": ["../../../../libs/middlewares"],
+    //   "@mimir/lambda-middlewares": ["../../../../libs/middlewares"],
     //   "@types": ["../../../../../shared/types"]
     // }
   }

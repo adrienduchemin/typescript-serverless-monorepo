@@ -1,10 +1,10 @@
+import middy from '@middy/core'
 import {
   eventErrorHandler,
   EventBridgeInjector,
   IInjectedContext,
   traceInjector,
-} from '@middlewares'
-import middy from '@middy/core'
+} from '@mimir/lambda-middlewares'
 import { DynamoDBStreamEvent } from 'aws-lambda'
 
 import { handle } from './main'

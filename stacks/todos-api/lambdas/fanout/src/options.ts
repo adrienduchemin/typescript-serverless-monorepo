@@ -1,5 +1,5 @@
 import { AWS_REGION } from '@constants'
-import { IEventBridgeInjectorConfig } from '@middlewares'
+import { IEventBridgeInjectorConfig } from '@mimir/lambda-middlewares'
 import { EventBridge } from 'aws-sdk'
 
 export const eventBridgeInjectorConfig: IEventBridgeInjectorConfig = {

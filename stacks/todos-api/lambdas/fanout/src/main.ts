@@ -1,4 +1,4 @@
-import { IInjectorConfig } from '@middlewares'
+import { IInjectorConfig } from '@mimir/lambda-middlewares'
 import { ITodo, EventError } from '@types'
 import { DynamoDBStreamEvent } from 'aws-lambda'
 import { AWSError } from 'aws-sdk'

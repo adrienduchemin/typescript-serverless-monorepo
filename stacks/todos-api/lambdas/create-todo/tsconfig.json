@@ -4,22 +4,23 @@
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src",
-    "baseUrl": "."
-    // "paths": {
-    //   "@constants": ["../../../../constants"],
-    //   "@middlewares": ["../../../../libs/middlewares"],
-    //   "@types": ["../../../../../shared/types"]
-    // }
-  }
-  // "references": [
-  //   {
-  //     "path": "../../../../libs/middlewares"
-  //   },
-  //   {
-  //     "path": "../../../../constants"
-  //   },
-  //   {
-  //     "path": "../../../../../shared/types"
-  //   }
-  // ]
+    "baseUrl": ".",
+    "paths": {
+      "@constants": ["../../../../constants"],
+      "@mimir/lambda-middlewares": ["../../../../libs/lambda-middlewares"],
+      "@mimir/lambda-errors": ["../../../../libs/lambda-middlewares"],
+      "@mimir/models": ["../../../../models"]
+    }
+  },
+  "references": [
+    {
+      "path": "../../../../libs/lambda-middlewares"
+    },
+    {
+      "path": "../../../../libs/lambda-errors"
+    },
+    {
+      "path": "../../../../models"
+    }
+  ]
 }

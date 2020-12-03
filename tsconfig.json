@@ -1,20 +1,44 @@
 {
-  "files": []
-  // "references": [
-  //   {
-  //     "path": "./back/stacks/todos-api/lambdas/create-todo"
-  //   },
-  //   {
-  //     "path": "./back/stacks/todos-api/lambdas/fanout"
-  //   },
-  //   {
-  //     "path": "./back/libs/middlewares"
-  //   },
-  //   {
-  //     "path": "./back/libs/utils"
-  //   },
-  //   {
-  //     "path": "./shared"
-  //   }
-  // ]
+  "files": [],
+  "references": [
+    {
+      "path": "./deployment"
+    },
+    {
+      "path": "./models"
+    },
+    {
+      "path": "./libs/lambda-middlewares"
+    },
+    {
+      "path": "./libs/lambda-errors"
+    },
+    {
+      "path": "./libs/dynamodb"
+    },
+    {
+      "path": "./libs/react-hooks"
+    },
+    {
+      "path": "./stacks/todos-api/lambdas/create-todo"
+    },
+    {
+      "path": "./stacks/todos-api/lambdas/fanout"
+    },
+    {
+      "path": "./apps/todos/root"
+    },
+    {
+      "path": "./apps/todos/pages/todo-list"
+    },
+    {
+      "path": "./components/atoms/atom1"
+    },
+    {
+      "path": "./components/molecules/molecule1"
+    },
+    {
+      "path": "./components/organisms/organism1"
+    }
+  ]
 }

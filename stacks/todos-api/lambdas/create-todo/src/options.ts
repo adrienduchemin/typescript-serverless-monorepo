@@ -1,8 +1,7 @@
-import { AWS_DYNAMODB_LOCAL_ENDPOINT, AWS_REGION } from '@constants'
 import {
   IDynamoDBInjectorConfig,
   IApiGatewayEventBodyValidatorOptions,
-} from '@middlewares'
+} from '@mimir/lambda-middlewares'
 import { DynamoDB } from 'aws-sdk'
 
 import { DEFAULT_TABLE_NAME } from './constants'
@@ -12,8 +11,8 @@ export const dynamoDBInjectorConfig: IDynamoDBInjectorConfig = {
   tableName: process.env.TABLE_NAME ?? DEFAULT_TABLE_NAME,
   client: new DynamoDB.DocumentClient({
     apiVersion: 'latest',
-    region: process.env.REGION_DB ?? process.env.REGION ?? AWS_REGION,
-    endpoint: process.env.AWS_SAM_LOCAL && AWS_DYNAMODB_LOCAL_ENDPOINT,
+    region: process.env.REGION_DB ?? process.env.REGION,
+    endpoint: process.env.AWS_SAM_LOCAL,
   }),
 }
 
