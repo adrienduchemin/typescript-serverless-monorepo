@@ -1,4 +1,4 @@
-export * from './api-gateway-event-body-parser'
+export * from './api-gateway-event-json-body-parser'
 export * from './api-gateway-event-body-validator'
 export * from './dynamodb-injector'
 export * from './eventbridge-injector'

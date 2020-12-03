@@ -1,5 +1,5 @@
 {
-  "name": "@mimir/components-atoms-atom1",
+  "name": "@components/table",
   "version": "1.0.0",
   "main": "lib/index.js"
 }

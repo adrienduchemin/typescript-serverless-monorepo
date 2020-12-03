@@ -1,5 +1,5 @@
 {
-  "name": "@mimir/stack-todos-api-fanout",
+  "name": "@todos-api/lambda-fanout",
   "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {

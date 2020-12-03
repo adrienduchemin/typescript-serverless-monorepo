@@ -32,13 +32,19 @@
       "path": "./apps/todos/pages/todo-list"
     },
     {
-      "path": "./components/atoms/atom1"
+      "path": "./components/atoms/button"
     },
     {
-      "path": "./components/molecules/molecule1"
+      "path": "./components/atoms/input"
     },
     {
-      "path": "./components/organisms/organism1"
+      "path": "./components/atoms/table"
+    },
+    {
+      "path": "./components/molecules/search-bar"
+    },
+    {
+      "path": "./components/organisms/list"
     }
   ]
 }

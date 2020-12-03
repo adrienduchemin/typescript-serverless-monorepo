@@ -1,5 +1,5 @@
 {
-  "name": "@mimir/stack-todos-api-create-todo",
+  "name": "@todos-api/lambda-create-todo",
   "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {

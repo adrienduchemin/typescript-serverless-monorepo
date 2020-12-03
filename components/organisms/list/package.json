@@ -1,5 +1,5 @@
 {
-  "name": "@mimir/components-molecules-molecule1",
+  "name": "@components/list",
   "version": "1.0.0",
   "main": "lib/index.js"
 }
