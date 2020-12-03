@@ -2,7 +2,7 @@
 import middy from '@middy/core'
 import { EventBridge } from 'aws-sdk'
 
-import { IInjectedContext } from './injected-context'
+import { IContext } from './interfaces/context.interface'
 
 export interface IEventBridgeInjectorConfig {
   client: EventBridge
@@ -10,11 +10,11 @@ export interface IEventBridgeInjectorConfig {
 
 export const EventBridgeInjector = (
   config: IEventBridgeInjectorConfig
-): middy.MiddlewareObject<any, any, IInjectedContext> => {
+): middy.MiddlewareObject<any, any, IContext> => {
   return {
     before: (handler, next) => {
-      handler.context.config = {
-        ...handler.context.config,
+      handler.context = {
+        ...handler.context,
         eventbridge: config,
       }
       next()

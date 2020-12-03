@@ -1,9 +1,10 @@
 import middy from '@middy/core'
+import { DynamoDBClient } from '@mimir/dynamodb'
 import {
   apiGatewayEventBodyParser,
   apiGatewayEventBodyValidator,
   dynamoDBInjector,
-  IInjectedContext,
+  IContext,
   IAPIGatewayParsedEvent,
   traceInjector,
   httpErrorHandler,
@@ -12,17 +13,16 @@ import { ICreateTodo, ITodo } from '@mimir/models'
 import { APIGatewayProxyResultV2 } from 'aws-lambda'
 
 import { handle } from './main'
-import {
-  apiGatewayEventBodyValidatorOptions,
-  dynamoDBInjectorConfig,
-} from './options'
+import { apiGatewayEventBodyValidatorOptions } from './options'
+
+const dynamoDBClient = new DynamoDBClient()
 
 const createTodo = async (
   event: IAPIGatewayParsedEvent<ICreateTodo>,
-  context: IInjectedContext
+  context: IContext
 ): Promise<APIGatewayProxyResultV2<ITodo>> => {
   console.log('Handling lambda', { event, context })
-  return handle(event.body, context.config!)
+  return handle(event.body, context)
 }
 
 export const handler = middy(createTodo)
@@ -30,4 +30,4 @@ export const handler = middy(createTodo)
   .use(apiGatewayEventBodyParser())
   .use(apiGatewayEventBodyValidator(apiGatewayEventBodyValidatorOptions))
   .use(traceInjector())
-  .use(dynamoDBInjector(dynamoDBInjectorConfig))
+  .use(dynamoDBInjector(dynamoDBClient))

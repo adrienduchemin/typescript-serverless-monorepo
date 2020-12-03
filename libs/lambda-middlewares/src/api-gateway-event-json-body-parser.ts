@@ -2,7 +2,7 @@
 import middy from '@middy/core'
 import createHttpError from 'http-errors'
 
-import { IAPIGatewayParsedEvent } from './api-gateway-parsed-event'
+import { IAPIGatewayParsedEvent } from './interfaces/api-gateway-parsed-event.interface'
 
 export const apiGatewayEventBodyParser = (): middy.MiddlewareObject<
   IAPIGatewayParsedEvent<string | any>,

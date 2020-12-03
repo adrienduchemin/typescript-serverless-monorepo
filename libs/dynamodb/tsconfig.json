@@ -2,7 +2,16 @@
   "extends": "../../tsconfig.base.json",
   "include": ["src"],
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "lib",
-    "rootDir": "src"
-  }
+    "rootDir": "src",
+    "paths": {
+      "@mimir/lambda-errors": ["../lambda-errors"]
+    }
+  },
+  "references": [
+    {
+      "path": "../lambda-errors"
+    }
+  ]
 }

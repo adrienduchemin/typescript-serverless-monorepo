@@ -3,6 +3,14 @@
   "include": ["src"],
   "compilerOptions": {
     "outDir": "lib",
-    "rootDir": "src"
-  }
+    "rootDir": "src",
+    "paths": {
+      "@mimir/dynamodb": ["../dynamodb"]
+    }
+  },
+  "references": [
+    {
+      "path": "../dynamodb"
+    }
+  ]
 }

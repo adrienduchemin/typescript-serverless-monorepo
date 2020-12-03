@@ -2,7 +2,7 @@ import middy from '@middy/core'
 import {
   eventErrorHandler,
   EventBridgeInjector,
-  IInjectedContext,
+  IContext,
   traceInjector,
 } from '@mimir/lambda-middlewares'
 import { DynamoDBStreamEvent } from 'aws-lambda'
@@ -12,10 +12,10 @@ import { eventBridgeInjectorConfig } from './options'
 
 const fanout = async (
   event: DynamoDBStreamEvent, //IDynamoDBParsedEvent<ICreateTodo>
-  context: IInjectedContext
+  context: IContext
 ): Promise<void> => {
   console.log('Handling lambda', { event, context })
-  await handle(event, context.config!)
+  await handle(event, context)
 }
 
 export const handler = middy(fanout)

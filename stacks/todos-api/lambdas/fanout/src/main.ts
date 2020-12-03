@@ -1,5 +1,5 @@
 import { EventError } from '@mimir/lambda-errors'
-import { IInjectorConfig } from '@mimir/lambda-middlewares'
+import { IContext } from '@mimir/lambda-middlewares'
 import { ITodo } from '@mimir/models'
 import { DynamoDBStreamEvent } from 'aws-lambda'
 import { AWSError } from 'aws-sdk'
@@ -8,9 +8,9 @@ import { Converter } from 'aws-sdk/clients/dynamodb'
 
 export const handle = async (
   event: DynamoDBStreamEvent,
-  config: IInjectorConfig
+  { eventbridge }: IContext
 ): Promise<void> => {
-  const { client } = config.eventbridge!
+  const { client } = eventbridge!
 
   // should be moved to parser
   const entries = event.Records.map((record) => {

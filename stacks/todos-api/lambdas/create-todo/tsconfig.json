@@ -8,7 +8,8 @@
     "paths": {
       "@mimir/lambda-middlewares": ["../../../../libs/lambda-middlewares"],
       "@mimir/lambda-errors": ["../../../../libs/lambda-errors"],
-      "@mimir/models": ["../../../../models"]
+      "@mimir/models": ["../../../../models"],
+      "@mimir/dynamodb": ["../../../../libs/dynamodb"]
     }
   },
   "references": [
@@ -20,6 +21,9 @@
     },
     {
       "path": "../../../../models"
+    },
+    {
+      "path": "../../../../libs/dynamodb"
     }
   ]
 }
