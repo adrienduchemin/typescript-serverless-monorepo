@@ -1,23 +1,20 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./back/stacks/todos-api/lambdas/create-todo"
-    },
-    {
-      "path": "./back/stacks/todos-api/lambdas/fanout"
-    },
-    {
-      "path": "./back/constants"
-    },
-    {
-      "path": "./back/libs/middlewares"
-    },
-    {
-      "path": "./back/libs/utils"
-    },
-    {
-      "path": "./shared/types"
-    }
-  ]
+  "files": []
+  // "references": [
+  //   {
+  //     "path": "./back/stacks/todos-api/lambdas/create-todo"
+  //   },
+  //   {
+  //     "path": "./back/stacks/todos-api/lambdas/fanout"
+  //   },
+  //   {
+  //     "path": "./back/libs/middlewares"
+  //   },
+  //   {
+  //     "path": "./back/libs/utils"
+  //   },
+  //   {
+  //     "path": "./shared"
+  //   }
+  // ]
 }
