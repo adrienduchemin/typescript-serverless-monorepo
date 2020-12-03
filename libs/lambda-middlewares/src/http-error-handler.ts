@@ -13,8 +13,8 @@ export const httpErrorHandler = (): middy.MiddlewareObject<
 
       console.error(error)
 
-      if (!createHttpError.isHttpError(error) || error.statusCode >= 500) {
-        error = createHttpError(500, 'Oops, Something Went Wrong')
+      if (!createHttpError.isHttpError(error)) {
+        error = createHttpError(500, 'Oops, something went wrong')
       }
 
       handler.response = {

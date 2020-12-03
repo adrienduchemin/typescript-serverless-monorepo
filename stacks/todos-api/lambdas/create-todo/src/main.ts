@@ -1,8 +1,7 @@
+import { DynamoDBError } from '@mimir/lambda-errors'
 import { IInjectorConfig } from '@mimir/lambda-middlewares'
 import { ICreateTodo, ITodo } from '@mimir/models'
-import { AWSError } from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
-import createHttpError from 'http-errors'
 import { v4 as uuidv4 } from 'uuid'
 
 export const handle = async (
@@ -12,7 +11,7 @@ export const handle = async (
   const { tableName, client } = config.dynamodb!
 
   const todo: ITodo = {
-    todoId: uuidv4(),
+    todoIdd: uuidv4(),
     ...createTodoDto,
   }
 
@@ -32,12 +31,6 @@ export const handle = async (
     await client.put(input).promise()
     return todo
   } catch (err) {
-    const { message, code, statusCode } = err as AWSError
-    throw createHttpError(500, 'DynamoDB error', {
-      expose: true,
-      messageAws: message,
-      codeAws: code,
-      statusCodeAws: statusCode,
-    })
+    throw new DynamoDBError(err)
   }
 }

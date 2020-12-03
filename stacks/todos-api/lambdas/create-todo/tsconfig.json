@@ -6,9 +6,8 @@
     "rootDir": "src",
     "baseUrl": ".",
     "paths": {
-      "@constants": ["../../../../constants"],
       "@mimir/lambda-middlewares": ["../../../../libs/lambda-middlewares"],
-      "@mimir/lambda-errors": ["../../../../libs/lambda-middlewares"],
+      "@mimir/lambda-errors": ["../../../../libs/lambda-errors"],
       "@mimir/models": ["../../../../models"]
     }
   },

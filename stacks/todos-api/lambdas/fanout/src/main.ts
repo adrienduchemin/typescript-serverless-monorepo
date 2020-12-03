@@ -1,5 +1,6 @@
+import { EventError } from '@mimir/lambda-errors'
 import { IInjectorConfig } from '@mimir/lambda-middlewares'
-import { ITodo, EventError } from '@types'
+import { ITodo } from '@mimir/models'
 import { DynamoDBStreamEvent } from 'aws-lambda'
 import { AWSError } from 'aws-sdk'
 import { PutEventsRequest } from 'aws-sdk/clients/cloudwatchevents'

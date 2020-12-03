@@ -10,10 +10,12 @@
   },
   "private": true,
   "workspaces": [
-    "back/**",
-    "front/**",
+    "apps/**",
+    "components/**",
     "deployment/**",
-    "shared/**"
+    "libs/**",
+    "models/**",
+    "stacks/**"
   ],
   "scripts": {
     "eslint": "eslint --fix .",

@@ -8,9 +8,8 @@ Globals:
     Handler: bundle.handler
     Environment:
       Variables:
-        REGION: eu-central-1
-        REGION_DB: eu-west-3
-        TABLE_NAME: todos
+        AWS_DYNAMODB_REGION: eu-central-1
+        AWS_DYNAMODB_TABLE_NAME: todos
 
 Resources:
   createTodo:

@@ -4,15 +4,14 @@ import {
 } from '@mimir/lambda-middlewares'
 import { DynamoDB } from 'aws-sdk'
 
-import { DEFAULT_TABLE_NAME } from './constants'
 import { bodySchema } from './schema'
 
 export const dynamoDBInjectorConfig: IDynamoDBInjectorConfig = {
-  tableName: process.env.TABLE_NAME ?? DEFAULT_TABLE_NAME,
+  tableName: process.env.AWS_DYNAMODB_TABLE_NAME!,
   client: new DynamoDB.DocumentClient({
     apiVersion: 'latest',
-    region: process.env.REGION_DB ?? process.env.REGION,
-    endpoint: process.env.AWS_SAM_LOCAL,
+    region: process.env.AWS_DYNAMODB_REGION,
+    endpoint: process.env.AWS_SAM_LOCAL && 'http://dynamodb:8000',
   }),
 }
 
