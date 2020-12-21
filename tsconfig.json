@@ -8,6 +8,9 @@
       "path": "./models"
     },
     {
+      "path": "./components"
+    },
+    {
       "path": "./libs/lambda-middlewares"
     },
     {
@@ -15,6 +18,9 @@
     },
     {
       "path": "./libs/dynamodb"
+    },
+    {
+      "path": "./libs/eventbridge"
     },
     {
       "path": "./libs/react-hooks"
@@ -26,25 +32,7 @@
       "path": "./stacks/todos-api/lambdas/fanout"
     },
     {
-      "path": "./apps/todos/root"
-    },
-    {
-      "path": "./apps/todos/pages/todo-list"
-    },
-    {
-      "path": "./components/atoms/button"
-    },
-    {
-      "path": "./components/atoms/input"
-    },
-    {
-      "path": "./components/atoms/table"
-    },
-    {
-      "path": "./components/molecules/search-bar"
-    },
-    {
-      "path": "./components/organisms/list"
+      "path": "./apps/todos/webapp"
     }
   ]
 }

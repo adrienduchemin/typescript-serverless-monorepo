@@ -4,17 +4,14 @@
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src",
+    "baseUrl": ".",
     "paths": {
-      "@mimir/dynamodb": ["../dynamodb"],
-      "@mimir/eventbridge": ["../eventbridge"]
+      "@mimir/lambda-errors": ["../lambda-errors"]
     }
   },
   "references": [
     {
-      "path": "../dynamodb"
-    },
-    {
-      "path": "../eventbridge"
+      "path": "../lambda-errors"
     }
   ]
 }

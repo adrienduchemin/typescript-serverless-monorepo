@@ -1,5 +1,5 @@
 {
-  "name": "@todos-api/lambda-create-todo",
+  "name": "@todos-api/create-todo",
   "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {

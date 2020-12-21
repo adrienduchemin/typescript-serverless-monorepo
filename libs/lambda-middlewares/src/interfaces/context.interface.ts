@@ -1,10 +1,9 @@
 import { DynamoDBClient } from '@mimir/dynamodb'
+import { EventBridgeClient } from '@mimir/eventbridge'
 import { Context } from 'aws-lambda'
-
-import { IEventBridgeInjectorConfig } from '../eventbridge-injector'
 
 export interface IContext extends Context {
   traceId?: string
-  dynamodb?: DynamoDBClient
-  eventbridge?: IEventBridgeInjectorConfig
+  dynamoDB?: DynamoDBClient
+  eventBridge?: EventBridgeClient
 }

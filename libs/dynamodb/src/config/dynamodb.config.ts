@@ -13,7 +13,7 @@ const region = process.env.AWS_DYNAMODB_REGION || AWS_DYNAMODB_REGION
 const apiVersion =
   process.env.AWS_DYNAMODB_API_VERSION || AWS_DYNAMODB_API_VERSION
 
-export interface IDynamoDBConfig {
+interface IDynamoDBConfig {
   apiVersion: string
   region: string
   endpoint: string
