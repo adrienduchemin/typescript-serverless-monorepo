@@ -12,6 +12,7 @@ export const apiGatewayEventBodyParser = (): middy.MiddlewareObject<
     before: (handler, next) => {
       const { body } = handler.event
 
+      // should check content type and json
       if (!body) {
         throw createHttpError(400, 'Body required')
       }

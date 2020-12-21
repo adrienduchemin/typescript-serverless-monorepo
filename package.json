@@ -2,26 +2,19 @@
   "name": "typescript-serverless-monorepo",
   "version": "1.0.0",
   "description": "A really modern serverless monorepo",
-  "author": "Duch",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/adrienduchemin/typescript-serverless-monorepo"
   },
-  "private": true,
-  "workspaces": [
-    "apps/**",
-    "components/**",
-    "deployment/**",
-    "libs/**",
-    "models/**",
-    "stacks/**"
-  ],
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "eslint": "eslint --fix .",
     "prebuild": "tsc -b --clean",
-    "build": "tsc -b -v",
-    "build:dev": "tsc -b -w -v"
+    "build": "tsc -b",
+    "watch": "tsc -b -w",
+    "test": "pnpm test --recursive",
+    "watch:movies": "concurrently \"pnpm watch\" \"pnpm build:watch --filter '@movies/*'\" \"docker-compose up -d\" \"sam local start-api --docker-network movies_network -p 9000 -t micro-services/movies/lambdas/movies.ms.yaml\""
   },
   "dependencies": {
     "@middy/core": "^1.4.0",
@@ -71,5 +64,9 @@
     "*.{ts,tsx}": [
       "eslint --fix"
     ]
+  },
+  "engines": {
+    "node": ">=12",
+    "pnpm": ">=5"
   }
 }

@@ -26,7 +26,7 @@ const createTodo = async (
 }
 
 export const handler = middy(createTodo)
-  .use(httpErrorHandler()) // so it's the last to execute error
+  .use(httpErrorHandler())
   .use(apiGatewayEventBodyParser())
   .use(apiGatewayEventBodyValidator(apiGatewayEventBodyValidatorOptions))
   .use(traceInjector())

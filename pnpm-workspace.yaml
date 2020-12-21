@@ -1,0 +1,7 @@
+packages:
+  - 'apps/**'
+  - 'components/**'
+  - 'deployment/**'
+  - 'libs/**'
+  - 'models/**'
+  - 'stacks/**'
